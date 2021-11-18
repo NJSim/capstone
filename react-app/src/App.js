@@ -5,11 +5,12 @@ import LoginForm from './components/auth/LoginForm';
 import SignUpForm from './components/auth/SignUpForm';
 import NavBar from './components/NavBar/NavBar';
 import ProtectedRoute from './components/auth/ProtectedRoute';
-import UsersList from './components/UsersList';
+// import UsersList from './components/UsersList';
 import User from './components/User';
 import { authenticate } from './store/session';
 import HomePage from './components/HomePage/HomePage';
 import Explore from './components/Explore/Explore';
+import Post from './components/Post/Post';
 
 function App() {
   const sessionUser = useSelector(state => state.session.user)
@@ -49,6 +50,10 @@ function App() {
         <ProtectedRoute path='/explore' exact={true} >
           <Explore/>
         </ProtectedRoute>
+        <ProtectedRoute path='/posts/:postId' exact={true} >
+          <Post/>
+        </ProtectedRoute>
+
 
       </Switch>
     </BrowserRouter>
