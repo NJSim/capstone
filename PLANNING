@@ -1,0 +1,42 @@
+STORE STRUCTURE FOR gamestagram
+
+session.user: {
+    email:
+    username:
+}
+
+//when entering a /user/<int> -> get info using useeffect?
+//do i save posts table elements here? with caption, url in store? which then has a .likes to store all the posts likes.
+//Is that too much data in store? Do I need this much?
+profile.user: {
+    username: blah_username
+    followers:{
+        <list of int of userid> //sorted by create date?
+    }
+    followings:{
+        <list of int of userid> //sorted by create date?
+    }
+}
+
+//when entering / (main page)
+dashboard.posts: {
+    <list of int from followings id where session.user = user_id : {
+        <list of int from likes id where post_id = corresponding>
+    }> //sorted by create date limit 30? how to limit posts or render more on bottom of page?
+}
+
+//On your dashboard you want a store that contains a list of all of the people you follow (followings table where )
+
+
+
+//NOTE followings table - user_id is the id of the user that is "famous" (easier to put it this way) and follower_id is the person that wants to follow
+//To see all of a certain person's followers- find all rows where user_id = famous persons user_id.
+
+
+//when clicking on a post you are directed to the /posts/<int post_id>
+post.info: {
+    comments:<comments related to post_id>
+    likes:<likes related to post_id?> //do I store this- probably yeah?
+}
+
+
