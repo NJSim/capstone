@@ -12,4 +12,11 @@ class Post(db.Model):
     updated_at = db.Column(db.DateTime(timezone=True), nullable=False)
 
     user = relationship("User", back_populates="posts")
-    
+
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'user_id': self.user_id,
+            'caption': self.caption,
+        }
