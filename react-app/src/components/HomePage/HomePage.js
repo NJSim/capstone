@@ -34,12 +34,12 @@ const HomePage = () => {
         await dispatch(getAllPosts())
     }
 
-    useEffect(() => {
-        (async () => {
-            await dispatch(getAllPosts())
-        })();
-        // await dispatch(getAllPosts())
-    },[dispatch])
+
+
+    useEffect(async() => {
+        await dispatch(getAllPosts())
+
+    },[])
 
 
     let isRegistered = (

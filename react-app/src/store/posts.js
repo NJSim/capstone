@@ -74,8 +74,30 @@ export const addPost = (user_id, caption) => async dispatch => {
     } else {
         return ['An error occurred. Please try again.']
     }
+}
+
+export const editPost = (id, caption) => async dispatch => {
+    await fetch(`/api/posts/${id}/edit`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ id, caption }),
+
+    });
+
+    const response = await fetch(`/api/posts/${id}`);
+    const data = await response.json();
+    dispatch(setPost(data))
 
 }
+
+export const deletePost = id => async dispatch => {
+    await fetch(`/api/posts/${id}/delete`, {
+        method: "DELETE",
+    });
+};
+
 
 export default function reducer(state = initialState, action) {
     switch (action.type) {
