@@ -58,3 +58,29 @@ def add_post():
         db.session.commit()
         return post.to_dict()
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+
+
+@post_routes.route('/<int:id>/edit', methods=["PUT"])
+@login_required
+def edit_post(id):
+    post = Post.query.get(id)
+
+    form = PostForm()
+
+    if form.validate_on_submit:
+        post.caption=form.data['caption']
+        db.session.commit()
+        return "Edit Success!"
+    else:
+        return None
+
+@post_routes.route('/<int:id>/delete', methods=["DELETE"])
+@login_required
+def delete_post(id):
+    print("DELETE TEST", id)
+    post = Post.query.get(id)
+
+    db.session.delete(post)
+    db.session.commit()
+
+    return "Delete Check"
