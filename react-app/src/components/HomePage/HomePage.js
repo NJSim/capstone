@@ -6,7 +6,6 @@ import * as sessionActions from '../../store/session'
 import LoginForm from "../auth/LoginForm"
 import Feed from "../Feed/Feed"
 import Modal from "../Modal/Modal"
-import Slideshow from "../Slideshow/Slideshow"
 import NavBar from "../NavBar/NavBar"
 
 const HomePage = () => {
