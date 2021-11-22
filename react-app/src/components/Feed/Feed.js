@@ -1,10 +1,18 @@
-import React, { useState } from "react"
-import { useSelector } from "react-redux"
+import React, { useEffect, useState } from "react"
+import { useSelector, useDispatch } from "react-redux"
+import { getAllPosts } from "../../store/posts"
+
 import Post from "../Post/Post"
 import SinglePost from "../SinglePost/SinglePost"
 
 const Feed = () => {
     const allPosts = useSelector(state => state.posts.allPosts) || {}
+    const dispatch = useDispatch();
+
+    useEffect(async() => {
+        await dispatch(getAllPosts())
+
+    },[])
 
     return (
         <>

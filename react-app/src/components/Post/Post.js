@@ -1,10 +1,12 @@
 import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
 import { getPost } from "../../store/posts";
+import SinglePost from "../SinglePost/SinglePost";
 
 const Post = () => {
     const { postId } = useParams()
+    const currentPost = useSelector(state => state.posts.post) || {}
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -16,7 +18,7 @@ const Post = () => {
 
     return (
         <>
-        Create new post {postId}
+            <SinglePost post={currentPost}/>
         </>
     )
 }

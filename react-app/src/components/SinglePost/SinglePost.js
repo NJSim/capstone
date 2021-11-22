@@ -1,20 +1,46 @@
+import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { NavLink } from "react-router-dom";
+import { deletePost, editPost, getAllPosts } from "../../store/posts";
 
 
 
 function SinglePost({ post }) {
 
+    const dispatch = useDispatch();
+    const [newCaption, setNewCaption] = useState("");
+
+    useEffect(async () => {
+        setNewCaption(post.caption)
+    },[dispatch, post.caption])
+
+    const submitEdit = async (e) => {
+        e.preventDefault();
+        await dispatch(editPost(post.id, newCaption))
+        await dispatch(getAllPosts())
+    }
+
+    const submitDelete = async (e) => {
+        e.preventDefault();
+        await dispatch(deletePost(post.id))
+        await dispatch(getAllPosts())
+    }
+
     return (
         <>
-            <h2>{post.caption}</h2>
+            <NavLink to={`/posts/${post.id}`}>{post.caption}</NavLink>
 
-            <input></input>
+            <input
+            onChange={(e) => setNewCaption(e.target.value)}
+
+            value={newCaption}
+            />
             <button
-                // onClick={(e) => {
-                //     e.preventDefault();
-                //     do dispatch editList with arguments needed (edited list etc)
-                // }}
+            onClick={submitEdit}
             >EDIT</button>
-            <button>DELETE</button>
+            <button
+            onClick={submitDelete}>DELETE</button>
+            <br></br>
         </>
     )
 }
