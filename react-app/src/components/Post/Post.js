@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
 import { getPost } from "../../store/posts";
+import NavBar from "../NavBar/NavBar";
 import SinglePost from "../SinglePost/SinglePost";
 
 const Post = () => {
@@ -18,6 +19,7 @@ const Post = () => {
 
     return (
         <>
+            <NavBar/>
             <SinglePost post={currentPost}/>
         </>
     )

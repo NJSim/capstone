@@ -28,7 +28,18 @@ function SinglePost({ post }) {
 
     return (
         <>
-            <NavLink to={`/posts/${post.id}`}>{post.caption}</NavLink>
+            <img src="https://www.cnet.com/a/img/resize/556a4835fe1f5e881f754ef2a7b131fd5d7fcb37/hub/2014/11/25/1a6274da-c2ae-404e-9b91-6f0195c5bec9/nintendo-wii-u-product-photos-add-01.jpg?auto=webp&fit=crop&height=675&width=1200"></img>
+            <div className="postNav">
+                <div>
+                    Like Button
+                </div>
+                <div>
+                    Comment Button
+                </div>
+            </div>
+            <div>placeholder Likes</div>
+            <div>{post.user_id}</div>
+            <div>{post.caption}</div>
 
             <input
             onChange={(e) => setNewCaption(e.target.value)}
@@ -41,6 +52,8 @@ function SinglePost({ post }) {
             <button
             onClick={submitDelete}>DELETE</button>
             <br></br>
+            <NavLink to={`/posts/${post.id}`}>View all {5} comments</NavLink>
+
         </>
     )
 }

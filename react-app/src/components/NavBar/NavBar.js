@@ -6,7 +6,7 @@ import LogoutButton from '../auth/LogoutButton';
 const NavBar = () => {
   return (
     <nav>
-      <ul>
+      {/* <ul>
         <li>
           <NavLink to='/' exact={true} activeClassName='active'>
             Home
@@ -30,7 +30,12 @@ const NavBar = () => {
         <li>
           <LogoutButton />
         </li>
-      </ul>
+      </ul> */}
+      <img href="/" src="https://www.instagram.com/static/images/web/mobile_nav_type_logo-2x.png/1b47f9d0e595.png"></img>
+      <input placeholder="🔍 Search"></input>
+      <br></br>
+      <LogoutButton/>
+
     </nav>
   );
 }
