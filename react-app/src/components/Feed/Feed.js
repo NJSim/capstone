@@ -24,7 +24,7 @@ const Feed = () => {
                     {/* <h2 key={allPosts[key].id}>{allPosts[key].caption}</h2>
                     <button>edit</button>
                     <button>delete</button> */}
-                    <SinglePost post={allPosts[key]}/>
+                    <SinglePost key={allPosts[key].id} post={allPosts[key]}/>
 
                 </>
             ))}

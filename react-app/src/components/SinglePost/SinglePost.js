@@ -8,6 +8,7 @@ import "./SinglePost.css"
 function SinglePost({ post }) {
 
     const sessionUser = useSelector(state => state.session.user)
+    const currentPost = useSelector(state => state.posts.post)
     const dispatch = useDispatch();
     const [errors, setErrors] = useState([]);
     const [newCaption, setNewCaption] = useState("");
@@ -15,7 +16,7 @@ function SinglePost({ post }) {
 
     useEffect(async () => {
         await dispatch(getPost(post.id))
-    },[])
+    },[dispatch])
 
     useEffect(async () => {
         setNewCaption(post.caption)
@@ -24,14 +25,12 @@ function SinglePost({ post }) {
     const submitEdit = async (e) => {
         e.preventDefault();
         await dispatch(editPost(post.id, newCaption))
-        await dispatch(getAllPosts())
         await dispatch(getPost(post.id))
     }
 
     const submitDelete = async (e) => {
         e.preventDefault();
         await dispatch(deletePost(post.id))
-        await dispatch(getAllPosts())
         await dispatch(getPost(post.id))
     }
 
@@ -42,7 +41,15 @@ function SinglePost({ post }) {
             setErrors(data)
         }
         setNewComment('')
-        await dispatch(getAllPosts())
+        await dispatch(getPost(post.id))
+    }
+
+    const EditComment = async (e) => {
+        console.log('edit test')
+    }
+    const DeleteComment = async (e) => {
+        console.log('delete test')
+
     }
 
     let isPost = (
@@ -77,9 +84,17 @@ function SinglePost({ post }) {
             >EDIT</button>
             <button
             onClick={submitDelete}>DELETE</button>
-            <NavLink to={`/posts/${post.id}`}>View all {5} comments</NavLink>
+            <NavLink to={`/posts/${post.id}`}>View all 5 comments</NavLink>
             {Object.keys(post.comments).map( (key, index) => (
-                <h2 key={post.comments[key].id}>{post.comments[key].caption}</h2>
+                <>
+                    <h2 key={post.comments[key].id}>{post.comments[key].caption}</h2>
+                    <button
+                    onClick={EditComment}
+                    >Edit Comment</button>
+                    <button
+                    onClick={DeleteComment}
+                    >Delete Comment</button>
+                </>
             ))}
             <form onSubmit={submitComment}>
                 <div>
