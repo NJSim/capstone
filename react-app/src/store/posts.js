@@ -96,7 +96,39 @@ export const deletePost = id => async dispatch => {
     await fetch(`/api/posts/${id}/delete`, {
         method: "DELETE",
     });
+    const response = await fetch(`/api/posts/${id}`);
+    const data = await response.json();
+    dispatch(setPost(data))
+    //reminder when they delete from /posts/{id} to nea
+
 };
+
+export const addComment = (user_id, post_id, caption) => async dispatch => {
+    const response = await fetch(`/api/posts/${post_id}/addComment`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            user_id,
+            post_id,
+            caption
+        }),
+    });
+
+    if (response.ok) {
+        await response.json()
+        getAllPosts();
+        return null;
+    } else if (response.status < 500) {
+        const data = await response.json();
+        if (data.errors) {
+          return data.errors;
+        }
+    } else {
+        return ['An error occurred. Please try again.']
+    }
+}
 
 
 export default function reducer(state = initialState, action) {
