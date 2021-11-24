@@ -14,6 +14,7 @@ import Post from './components/Post/Post';
 
 function App() {
   const sessionUser = useSelector(state => state.session.user)
+  const allPosts = useSelector(state => state.posts.allPosts) || {}
   const [loaded, setLoaded] = useState(false);
   const dispatch = useDispatch();
 

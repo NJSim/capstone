@@ -17,6 +17,7 @@ const initialState = {
 }
 
 export const getPost = postId => async dispatch => {
+    console.log("THIS IS POST ID &********", postId)
     const response = await fetch(`/api/posts/${postId}`);
 
     if (response.ok) {

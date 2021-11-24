@@ -7,21 +7,32 @@ import SinglePost from "../SinglePost/SinglePost";
 
 const Post = () => {
     const { postId } = useParams()
-    const currentPost = useSelector(state => state.posts.post) || {}
+    const currentPost = useSelector(state => state.posts.post)
     const dispatch = useDispatch();
 
-    useEffect(() => {
-        (async () => {
-            await dispatch(getPost(postId))
-            await dispatch(getAllPosts())
-        })();
+    useEffect(async() => {
+        await dispatch(getPost(postId))
 
-    },[dispatch, postId])
+    },[])
+
+    let postExists = (
+        <>
+        </>
+    )
+
+    if (currentPost){
+        postExists = (
+            <>
+            <NavBar/>
+            <SinglePost post={currentPost}/>
+        </>
+        )
+    }
+
 
     return (
         <>
-            <NavBar/>
-            <SinglePost post={currentPost}/>
+            {postExists}
         </>
     )
 }

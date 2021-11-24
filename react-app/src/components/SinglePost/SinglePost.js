@@ -3,10 +3,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { deletePost, editPost, getAllPosts, addComment, getPost } from "../../store/posts";
 import "./SinglePost.css"
+import { useParams } from "react-router";
 
 
 function SinglePost({ post }) {
 
+    // if (!post){
+    //     const { postId } = useParams()
+    // }
+    const { postId } = useParams()
     const sessionUser = useSelector(state => state.session.user)
     const currentPost = useSelector(state => state.posts.post)
     const dispatch = useDispatch();
@@ -14,13 +19,21 @@ function SinglePost({ post }) {
     const [newCaption, setNewCaption] = useState("");
     const [newComment, setNewComment] = useState("");
 
-    useEffect(async () => {
-        await dispatch(getPost(post.id))
-    },[dispatch])
+    // useEffect(async () => {
+    //     if (!post){
+    //         await dispatch(getPost(postId))
+    //     }
+
+    // },[])
+
+    // useEffect(async () => {
+    //     await dispatch(getPost(post.id))
+    // },[dispatch])
 
     useEffect(async () => {
         setNewCaption(post.caption)
     },[dispatch, post.caption])
+
 
     const submitEdit = async (e) => {
         e.preventDefault();
@@ -60,7 +73,7 @@ function SinglePost({ post }) {
 
     if (post) {
         isPost = (
-        <>
+        <div className="mainPost">
             <img className="postPic" src="https://www.cnet.com/a/img/resize/556a4835fe1f5e881f754ef2a7b131fd5d7fcb37/hub/2014/11/25/1a6274da-c2ae-404e-9b91-6f0195c5bec9/nintendo-wii-u-product-photos-add-01.jpg?auto=webp&fit=crop&height=675&width=1200"></img>
             <div className="postNav">
                 <div>
@@ -84,7 +97,7 @@ function SinglePost({ post }) {
             >EDIT</button>
             <button
             onClick={submitDelete}>DELETE</button>
-            <NavLink to={`/posts/${post.id}`}>View all 5 comments</NavLink>
+            <NavLink to={`/posts/${post?.id}`}>View all 5 comments</NavLink>
             {Object.keys(post.comments).map( (key, index) => (
                 <>
                     <h2 key={post.comments[key].id}>{post.comments[key].caption}</h2>
@@ -118,8 +131,75 @@ function SinglePost({ post }) {
             </form>
             <br></br>
 
-        </>
+        </div>
         )
+    }
+    else if (currentPost){
+        isPost = (
+            <div className="mainPost">
+            <img className="postPic" src="https://www.cnet.com/a/img/resize/556a4835fe1f5e881f754ef2a7b131fd5d7fcb37/hub/2014/11/25/1a6274da-c2ae-404e-9b91-6f0195c5bec9/nintendo-wii-u-product-photos-add-01.jpg?auto=webp&fit=crop&height=675&width=1200"></img>
+            <div className="postNav">
+                <div>
+                    Like Button
+                </div>
+                <div>
+                    Comment Button
+                </div>
+            </div>
+            <div>placeholder Likes</div>
+            <div>{post.user_id}</div>
+            <div>{post.caption}</div>
+
+            <input
+            onChange={(e) => setNewCaption(e.target.value)}
+
+            value={newCaption}
+            />
+            <button
+            onClick={submitEdit}
+            >EDIT</button>
+            <button
+            onClick={submitDelete}>DELETE</button>
+            <NavLink to={`/posts/${post?.id}`}>View all 5 comments</NavLink>
+            {Object.keys(post.comments).map( (key, index) => (
+                <>
+                    <h2 key={post.comments[key].id}>{post.comments[key].caption}</h2>
+                    <button
+                    onClick={EditComment}
+                    >Edit Comment</button>
+                    <button
+                    onClick={DeleteComment}
+                    >Delete Comment</button>
+                </>
+            ))}
+            <form onSubmit={submitComment}>
+                <div>
+                    {errors.map((error, ind) => (
+                        <div key={ind}>{error}</div>
+                    ))}
+                </div>
+                <div>
+                    <input
+                    type='text'
+                    name='comment'
+                    onChange={(e) => setNewComment(e.target.value)}
+                    required
+                    placeholder="Add a comment..."
+                    value={newComment}
+                    required={true}
+                    ></input>
+                    <button type="submit">Post</button>
+                </div>
+
+            </form>
+            <br></br>
+
+        </div>
+        )
+    } else {
+        <>
+        test2
+        </>
     }
 
 
