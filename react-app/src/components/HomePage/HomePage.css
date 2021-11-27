@@ -1,3 +1,91 @@
 h1{
     font-family: billabong;
 }
+
+.splashFlex{
+    display: flex;
+    justify-content: center;
+    margin-top: 320px;
+    gap: 20px;
+
+}
+
+.pictureSplash {
+    width: 240px;
+    height: 427px;
+    border: 1px solid #dbdbdb;
+}
+
+.splashMain {
+    height: 360px;
+    width: 348px;
+}
+
+.splashMainFlex {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.logForm {
+    border: 1px solid #dbdbdb;
+    height: 360px;
+    width: 348px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 25px;
+}
+
+.signUp {
+    border: 1px solid #dbdbdb;
+    height: 41;
+    width: 348px;
+    text-align: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+
+.signupLink{
+    text-decoration: none;
+    color: #2a8af8;
+    font-weight: bold;
+}
+
+.signupLink:active{
+    text-decoration: none;
+    color: rgb(66, 160, 189);
+}
+
+.text {
+    text-align: center;
+}
+
+.splashFooter {
+    font-size: 12px;
+    line-height: 15px;
+    margin: -2px 0 -3px;
+    position: fixed;
+    width: 100%;
+    text-align: center;
+    left: 0;
+    bottom: 0;
+    padding: 20px;
+    color: #8e8e8e;
+}
+
+.demo-login {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.demo-login:active {
+    background-color: #dbdbdb;
+}

@@ -11,6 +11,7 @@ import { authenticate } from './store/session';
 import HomePage from './components/HomePage/HomePage';
 import Explore from './components/Explore/Explore';
 import Post from './components/Post/Post';
+import Forgot from './components/Forgot/Forgot';
 
 function App() {
   const sessionUser = useSelector(state => state.session.user)
@@ -34,6 +35,9 @@ function App() {
       <Switch>
         <Route path='/' exact={true} >
           <HomePage/>
+        </Route>
+        <Route path='/forgot-password' exact={true} >
+          <Forgot/>
         </Route>
         <Route path='/login' exact={true}>
           <LoginForm />

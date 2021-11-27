@@ -7,6 +7,7 @@ import LoginForm from "../auth/LoginForm"
 import Feed from "../Feed/Feed"
 import Modal from "../Modal/Modal"
 import NavBar from "../NavBar/NavBar"
+import { NavLink } from "react-router-dom"
 
 const HomePage = () => {
 
@@ -39,30 +40,40 @@ const HomePage = () => {
 
 
 
-    useEffect(async() => {
-        await dispatch(getAllPosts())
+    // useEffect(async() => {
+    //     await dispatch(getAllPosts())
 
-    },[])
+    // },[])
 
 
     let isRegistered = (
         <div className='splashPage'>
-            <button className="demo-login" onMouseDown={demo}>Demo Login</button>
-            <div className='splashMain'>
-                <div className="logForm">
-                    <div className="logo">
-                        <h1 className="logoFont">Gamestagram</h1>
-                    </div>
-                    <div className="logInForm">
-                        <LoginForm/>
-                    </div>
+            <div className='splashFlex'>
+                <div className='pictureSplash'>
+                    text
                 </div>
-                <div className="signUp">
+                <div className='splashMain'>
+                    <div className='splashMainFlex'>
+                        <div className="logForm">
+                            <div className="logo">
+                                <h1 className="logoFont">Gamestagram</h1>
+                            </div>
+                            <div className="logInForm">
+                                <LoginForm/>
+                                <button className="demo-login" onMouseDown={demo}>Demo Login</button>
+                            </div>
+                        </div>
+                        <div className="signUp">
+                            <span>Don't have an account? </span>
+                            <NavLink className="signupLink" to="/sign-up">Sign up</NavLink>
+                        </div>
+                        <div className="text">
+                            Coming to Apps Soon.
+                        </div>
 
+                    </div>
                 </div>
-                <div className="text">
-                    Coming to Apps Soon.
-                </div>
+
             </div>
 
             <div className="splashFooter">

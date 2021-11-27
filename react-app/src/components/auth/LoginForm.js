@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import { NavLink, Redirect } from 'react-router-dom';
 import { login } from '../../store/session';
+import "./LoginForm.css"
 
 const LoginForm = () => {
   const [errors, setErrors] = useState([]);
@@ -31,7 +32,7 @@ const LoginForm = () => {
   }
 
   return (
-    <div>
+    <div className="container">
       <form onSubmit={onLogin}>
         <div>
           {errors.map((error, ind) => (
@@ -46,6 +47,9 @@ const LoginForm = () => {
             placeholder='Email'
             value={email}
             onChange={updateEmail}
+            autoCapitalize="off"
+            autoCorrect="off"
+            maxLength="75"
           />
         </div>
         <div>
@@ -57,10 +61,11 @@ const LoginForm = () => {
             value={password}
             onChange={updatePassword}
           />
+          <br></br>
           <button type='submit'>Log in</button>
         </div>
       </form>
-      <div>Forgot password?</div>
+      <NavLink to="/forgot-password" className="forgot">Forgot Password?</NavLink>
     </div>
   );
 };

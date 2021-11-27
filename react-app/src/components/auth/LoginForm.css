@@ -1,0 +1,48 @@
+.container{
+    width: 250px;
+}
+
+input[type=text] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+input[type=password] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+button[type=submit] {
+    width: 100%;
+    background-color: #2a8af8;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button[type=submit]:active {
+    background-color: rgb(66, 160, 189);
+}
+
+.forgot {
+    display: flex;
+    justify-content: center;
+    text-decoration: none;
+    color: rgb(16, 39, 46);
+}
+
+.forgot:active {
+    color: rgb(52, 122, 143);
+}
