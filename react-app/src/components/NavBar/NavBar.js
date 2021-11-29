@@ -1,11 +1,16 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import LogoutButton from '../auth/LogoutButton';
+import "./NavBar.css"
 
 const NavBar = () => {
+
+  const [searchClicked, setSearchClicked] = useState(false)
+  const [query, setQuery] = useState("")
+
   return (
-    <nav>
+    <nav className="navBarMain">
       {/* <ul>
         <li>
           <NavLink to='/' exact={true} activeClassName='active'>
@@ -31,11 +36,25 @@ const NavBar = () => {
           <LogoutButton />
         </li>
       </ul> */}
-      <NavLink to="/">
-        <img href="/" src="https://www.instagram.com/static/images/web/mobile_nav_type_logo-2x.png/1b47f9d0e595.png"></img>
-
+      <NavLink className="logoNav" to="/">
+        <h1 className="logo">
+          Gamestagram
+        </h1>
       </NavLink>
-      <input placeholder="🔍 Search"></input>
+      <div>
+        <input className="searchBar" placeholder="Search"
+        onFocus={(e) => setSearchClicked(true)}
+        onBlur={(e) => setSearchClicked(false)}
+        onKeyUp={(e) => setQuery(e.target.value)}
+        type="search"
+        ></input>
+        {searchClicked ? (
+          <div>
+            Test Results
+          </div>
+        ): null}
+
+      </div>
       <br></br>
       <LogoutButton/>
 

@@ -1,4 +1,4 @@
-from app.models import db, Post, Comment
+from app.models import db, Post, Comment, Like
 from datetime import date
 
 
@@ -22,30 +22,32 @@ def seed_posts():
 
     # db.session.commit()
     post1 = Post(
-        user_id=1, caption="This is User 1's first post",created_at=today, updated_at=today)
+        user_id=1, caption="This is User 1's first post", url="https://compass-ssl.xbox.com/assets/b9/0a/b90ad58f-9950-44a7-87fa-1ee8f0b6a90e.jpg?n=XSX_Page-Hero-0_768x792.jpg", created_at=today, updated_at=today)
     post2 = Post(
-        user_id=1, caption="This is User 1's second post",created_at=today, updated_at=today)
+        user_id=1, caption="This is User 1's second post", url="https://www.cnet.com/a/img/resize/556a4835fe1f5e881f754ef2a7b131fd5d7fcb37/hub/2014/11/25/1a6274da-c2ae-404e-9b91-6f0195c5bec9/nintendo-wii-u-product-photos-add-01.jpg?auto=webp&fit=crop&height=675&width=1200", created_at=today, updated_at=today)
 
     post3 = Post(
-        user_id=2, caption="this is User 2's first post",created_at=today, updated_at=today)
+        user_id=2, caption="this is User 2's first post", url="https://compass-ssl.xbox.com/assets/b9/0a/b90ad58f-9950-44a7-87fa-1ee8f0b6a90e.jpg?n=XSX_Page-Hero-0_768x792.jpg", created_at=today, updated_at=today)
 
     post4 = Post(
-        user_id=3, caption="this is User 3's first post",created_at=today, updated_at=today)
+        user_id=3, caption="this is User 3's first post No Pic",created_at=today, updated_at=today)
 
     post5= Post(
-        user_id=4, caption="this is Nick's first post",created_at=today, updated_at=today)
+        user_id=4, caption="this is Nick's first post No Pic",created_at=today, updated_at=today)
 
     comment1 = Comment(
-        user_id=2, post_id=1, caption="I am user 2 commenting on user 1's photo",created_at=today, updated_at=today)
+        user_id=2, post_id=1, caption="I am user 2 commenting on user 1's photo", created_at=today, updated_at=today)
     comment2 = Comment(
-        user_id=3, post_id=1, caption="I am user 3 commenting on user 1's photo",created_at=today, updated_at=today)
+        user_id=3, post_id=1, caption="I am user 3 commenting on user 1's photo", created_at=today, updated_at=today)
     comment3 = Comment(
-        user_id=1, post_id=2, caption="I am user 1 commenting on user 2's photo",created_at=today, updated_at=today)
+        user_id=1, post_id=2, caption="I am user 1 commenting on user 2's photo", created_at=today, updated_at=today)
     comment4 = Comment(
-        user_id=1, post_id=2, caption="I am user 1 commenting on user 2's photo AGAIN",created_at=today, updated_at=today)
+        user_id=1, post_id=2, caption="I am user 1 commenting on user 2's photo AGAIN", created_at=today, updated_at=today)
     comment5 = Comment(
-        user_id=1, post_id=1, caption="I am user 1 commenting on my own photo",created_at=today, updated_at=today)
+        user_id=1, post_id=1, caption="I am user 1 commenting on my own photo", created_at=today, updated_at=today)
 
+    like1 = Like(user_id=1, post_id=1, created_at=today, updated_at=today)
+    like2 = Like(user_id=1, post_id=2, created_at=today, updated_at=today)
 
 
     db.session.add(post1)
@@ -59,6 +61,9 @@ def seed_posts():
     db.session.add(comment3)
     db.session.add(comment4)
     db.session.add(comment5)
+
+    db.session.add(like1)
+    db.session.add(like2)
 
     db.session.commit()
 

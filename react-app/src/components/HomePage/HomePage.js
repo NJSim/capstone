@@ -17,6 +17,7 @@ const HomePage = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [newCaption, setNewCaption] = useState("");
+    const [newURL, setNewURL] = useState("")
 
     const dispatch = useDispatch();
 
@@ -30,11 +31,12 @@ const HomePage = () => {
     const submitPost = async (e) => {
         e.preventDefault();
         //data validation if caption is greater than 1?
-        const data = await dispatch(addPost(sessionUser.id, newCaption))
+        const data = await dispatch(addPost(sessionUser.id, newCaption, newURL))
         if (data) {
             setErrors(data)
         }
         setNewCaption('')
+        setNewURL('')
         await dispatch(getAllPosts())
     }
 
@@ -82,7 +84,7 @@ const HomePage = () => {
                     <div>Nicolas LinkedIn</div>
 
                 </div>
-                <div>© 2021 Gamestagram from Nicolas (Not really)</div>
+                <div>© 2021 Gamestagram (Instagram Clone)</div>
             </div>
 
         </div>
@@ -108,6 +110,14 @@ const HomePage = () => {
                         value={newCaption}
                         required={true}
                         />
+                        <input
+                        type='text'
+                        name='url'
+                        onChange={(e) => setNewURL(e.target.value)}
+                        placeholder="URL"
+                        value={newURL}
+                        >
+                        </input>
                     </div>
                     <button type="submit">Create Post</button>
                 </form>

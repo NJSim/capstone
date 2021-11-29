@@ -51,7 +51,7 @@ export const getAllPosts = () => async dispatch => {
     }
 };
 
-export const addPost = (user_id, caption) => async dispatch => {
+export const addPost = (user_id, caption, url) => async dispatch => {
     const response = await fetch('/api/posts/add', {
         method: 'POST',
         headers: {
@@ -59,7 +59,8 @@ export const addPost = (user_id, caption) => async dispatch => {
         },
         body: JSON.stringify({
             user_id,
-            caption
+            caption,
+            url
         }),
     });
 
@@ -97,12 +98,42 @@ export const deletePost = id => async dispatch => {
     await fetch(`/api/posts/${id}/delete`, {
         method: "DELETE",
     });
-    const response = await fetch(`/api/posts/${id}`);
-    const data = await response.json();
-    dispatch(setPost(data))
-    //reminder when they delete from /posts/{id} to nea
 
 };
+
+export const addLike = (user_id, post_id) => async dispatch => {
+    const response = await fetch(`/api/posts/${post_id}/${user_id}/like`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            user_id,
+            post_id
+        }),
+    });
+    if (response.ok) {
+        await response.json()
+        return null;
+    } else if (response.status < 500) {
+        const data = await response.json();
+        if (data.errors) {
+          return data.errors;
+        }
+    } else {
+        return ['An error occurred. Please try again.']
+    }
+}
+
+export const deleteLike = (user_id, post_id) => async dispatch => {
+    await fetch(`/api/posts/${post_id}/${user_id}/like`, {
+        method: 'DELETE',
+    });
+    const response = await fetch(`/api/posts/${post_id}`);
+    const data = await response.json();
+    dispatch(setPost(data))
+
+}
 
 export const addComment = (user_id, post_id, caption) => async dispatch => {
     const response = await fetch(`/api/posts/${post_id}/addComment`, {
@@ -129,6 +160,30 @@ export const addComment = (user_id, post_id, caption) => async dispatch => {
     } else {
         return ['An error occurred. Please try again.']
     }
+}
+
+export const editComment = (post_id, comment_id, caption) => async dispatch => {
+    await fetch(`/api/posts/${post_id}/${comment_id}/editComment`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ comment_id, caption }),
+
+    });
+
+    const response = await fetch(`/api/posts/${post_id}`);
+    const data = await response.json();
+    dispatch(setPost(data))
+}
+
+export const deleteComment = (post_id, comment_id) => async dispatch => {
+    await fetch(`/api/posts/${post_id}/${comment_id}/deleteComment`, {
+        method: "DELETE"
+    })
+    const response = await fetch(`/api/posts/${post_id}`);
+    const data = await response.json();
+    dispatch(setPost(data))
 }
 
 

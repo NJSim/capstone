@@ -15,6 +15,7 @@ class User(db.Model, UserMixin):
 
     posts = db.relationship("Post", cascade="all, delete, delete-orphan")
     comments = db.relationship("Comment", cascade="all, delete, delete-orphan")
+    likes = db.relationship("Like", cascade="all, delete, delete-orphan")
 
     @property
     def password(self):

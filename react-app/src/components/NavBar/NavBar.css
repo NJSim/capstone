@@ -1,0 +1,34 @@
+.navBarMain{
+    display:flex;
+    justify-content: space-between;
+    height: 54px;
+    align-items: center;
+    padding-bottom: 20px;
+    position: sticky;
+    top: 0;
+    background-color: white;
+}
+
+.searchBar{
+    text-align: left;
+    border: 1px solid rgb(219, 219, 219,1);
+    border-radius: 3px;
+    max-width: 189px;
+    height: 20px;
+}
+
+.logoNav {
+    text-decoration: None;
+
+}
+
+.logo{
+    font-family: Billabong;
+    color: black;
+    font-size: 46px;
+}
+
+.userProfile{
+    text-decoration: none;
+    color:rgb(219, 219, 219,1)
+}

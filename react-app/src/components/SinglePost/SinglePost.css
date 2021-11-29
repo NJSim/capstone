@@ -1,8 +1,12 @@
 .postPic{
-    height:50px;
-    width: 50px;
+
+    max-width: 614px;
 }
 
 .mainPost{
     border: 1px solid black;
+    max-height: 3000px;
+    max-width: 614px;
+    margin-left: 100px;
+    margin-bottom: 40px;
 }

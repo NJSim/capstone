@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { deletePost, editPost, getAllPosts, addComment, getPost } from "../../store/posts";
+import { deletePost, editPost, getAllPosts, addComment, getPost, editComment, deleteComment, addLike, deleteLike } from "../../store/posts";
 import "./SinglePost.css"
 import { useParams } from "react-router";
 
@@ -14,10 +14,13 @@ function SinglePost({ post }) {
     const { postId } = useParams()
     const sessionUser = useSelector(state => state.session.user)
     const currentPost = useSelector(state => state.posts.post)
+
     const dispatch = useDispatch();
     const [errors, setErrors] = useState([]);
     const [newCaption, setNewCaption] = useState("");
     const [newComment, setNewComment] = useState("");
+    const [newEditComment, setNewEditComment] = useState("");
+    const [sessionUserId, setSessionUserId] = useState("")
 
     // useEffect(async () => {
     //     if (!post){
@@ -34,17 +37,24 @@ function SinglePost({ post }) {
         setNewCaption(post.caption)
     },[dispatch, post.caption])
 
+    useEffect(async () => {
+        setSessionUserId(sessionUser.id)
+    },[dispatch, sessionUser])
+
+
 
     const submitEdit = async (e) => {
         e.preventDefault();
         await dispatch(editPost(post.id, newCaption))
         await dispatch(getPost(post.id))
+        await dispatch(getAllPosts())
     }
 
     const submitDelete = async (e) => {
         e.preventDefault();
         await dispatch(deletePost(post.id))
         await dispatch(getPost(post.id))
+        await dispatch(getAllPosts())
     }
 
     const submitComment = async(e) => {
@@ -55,6 +65,7 @@ function SinglePost({ post }) {
         }
         setNewComment('')
         await dispatch(getPost(post.id))
+        await dispatch(getAllPosts())
     }
 
     const EditComment = async (e) => {
@@ -74,39 +85,113 @@ function SinglePost({ post }) {
     if (post) {
         isPost = (
         <div className="mainPost">
-            <img className="postPic" src="https://www.cnet.com/a/img/resize/556a4835fe1f5e881f754ef2a7b131fd5d7fcb37/hub/2014/11/25/1a6274da-c2ae-404e-9b91-6f0195c5bec9/nintendo-wii-u-product-photos-add-01.jpg?auto=webp&fit=crop&height=675&width=1200"></img>
+            <div className="postInfo">
+                <NavLink to ={`/users/${post.user_id}`}>{post.user_id.username}</NavLink>
+            </div>
+            {post.url ? (
+                <img className="postPic" src={post.url}></img>
+
+            ): null}
             <div className="postNav">
+                {post.likes[sessionUserId] ?
+
+                <button
+                onClick={(e) => {
+                    e.preventDefault()
+                    dispatch(deleteLike(sessionUser.id, post.id)).then(() =>
+                    dispatch(getAllPosts())
+                    )
+                }}>
+                    Unlike
+                </button>
+
+
+                :
+                <button
+                onClick={(e) => {
+                    e.preventDefault()
+                    dispatch(addLike(sessionUser.id, post.id)).then(() =>
+                    dispatch(getAllPosts())
+                    )
+
+                }}
+                >
+                    Like
+                </button>
+
+                }
+
+
                 <div>
-                    Like Button
-                </div>
-                <div>
-                    Comment Button
+                    Comment
                 </div>
             </div>
-            <div>placeholder Likes</div>
-            <div>{post.user_id}</div>
-            <div>{post.caption}</div>
+            <div> { post.likesLength } Likes</div>
+            <div><NavLink to ={`/users/${post.user_id}`}>{post.user_id.username}</NavLink> {post.caption}</div>
+            {sessionUser.id == post.user_id.id ? (
+            <div className="exclusive">
+                <input
+                onChange={(e) => setNewCaption(e.target.value)}
 
-            <input
-            onChange={(e) => setNewCaption(e.target.value)}
+                value={newCaption}
+                />
+                <button
+                onClick={submitEdit}
+                >EDIT</button>
+                <button
+                onClick={(e) => {
+                    e.preventDefault();
+                    console.log('delete test')
+                    dispatch(deletePost(post.id)).then(() =>
+                    dispatch(getAllPosts())
+                    )
+                }}
+                >DELETE</button>
 
-            value={newCaption}
-            />
-            <button
-            onClick={submitEdit}
-            >EDIT</button>
-            <button
-            onClick={submitDelete}>DELETE</button>
-            <NavLink to={`/posts/${post?.id}`}>View all 5 comments</NavLink>
+            </div>): null}
+            <div>
+                <NavLink to={`/posts/${post?.id}`}>View all {post.commentsLength} comments</NavLink>
+
+            </div>
             {Object.keys(post.comments).map( (key, index) => (
                 <>
                     <h2 key={post.comments[key].id}>{post.comments[key].caption}</h2>
-                    <button
-                    onClick={EditComment}
-                    >Edit Comment</button>
-                    <button
-                    onClick={DeleteComment}
-                    >Delete Comment</button>
+
+                    {post.comments[key].id.user_id}
+                    {sessionUser.id == post.comments[key].user_id ? (
+                    <div className="exclusive">
+                        <input
+                        onChange={(e) => setNewEditComment(e.target.value)}
+                        value={newEditComment}
+                        placeholder={post.comments[key].caption}
+                        >
+                        </input>
+                        <button
+                        onClick={(e) => {
+                            e.preventDefault();
+                            dispatch(editComment(post.id, post.comments[key].id, newEditComment)).then(() =>
+                            dispatch(getPost(post.id)).then (() =>
+                            dispatch(getAllPosts())
+                            )
+                            )
+                            setNewEditComment("")
+                        }}
+                        >Edit Comment</button>
+                        <button
+                        onClick={(e) => {
+                            e.preventDefault();
+                            dispatch(deleteComment(post.id, post.comments[key].id)).then(() =>
+                            dispatch(getPost(post.id)).then (() =>
+                            dispatch(getAllPosts())
+                            )
+                            )
+                        }}
+                        >Delete Comment</button>
+
+                    </div>
+
+                        ): null
+                    }
                 </>
             ))}
             <form onSubmit={submitComment}>
@@ -137,7 +222,7 @@ function SinglePost({ post }) {
     else if (currentPost){
         isPost = (
             <div className="mainPost">
-            <img className="postPic" src="https://www.cnet.com/a/img/resize/556a4835fe1f5e881f754ef2a7b131fd5d7fcb37/hub/2014/11/25/1a6274da-c2ae-404e-9b91-6f0195c5bec9/nintendo-wii-u-product-photos-add-01.jpg?auto=webp&fit=crop&height=675&width=1200"></img>
+            <img className="postPic" src="https://compass-ssl.xbox.com/assets/b9/0a/b90ad58f-9950-44a7-87fa-1ee8f0b6a90e.jpg?n=XSX_Page-Hero-0_768x792.jpg"></img>
             <div className="postNav">
                 <div>
                     Like Button
@@ -161,17 +246,20 @@ function SinglePost({ post }) {
             <button
             onClick={submitDelete}>DELETE</button>
             <NavLink to={`/posts/${post?.id}`}>View all 5 comments</NavLink>
-            {Object.keys(post.comments).map( (key, index) => (
-                <>
-                    <h2 key={post.comments[key].id}>{post.comments[key].caption}</h2>
-                    <button
-                    onClick={EditComment}
-                    >Edit Comment</button>
-                    <button
-                    onClick={DeleteComment}
-                    >Delete Comment</button>
-                </>
-            ))}
+            <div className="commentSection">
+                {Object.keys(post.comments).slice(0,5).map( (key, index) => (
+                    <>
+                        <h2 key={post.comments[key].id}>{post.comments[key].caption}</h2>
+                        <button
+                        onClick={EditComment}
+                        >Edit Comment</button>
+                        <button
+                        onClick={DeleteComment}
+                        >Delete Comment</button>
+                    </>
+                ))}
+
+            </div>
             <form onSubmit={submitComment}>
                 <div>
                     {errors.map((error, ind) => (
