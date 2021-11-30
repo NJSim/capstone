@@ -5,7 +5,7 @@
 ## Introduction
 Gamestagram is a social media platform that focuses on gamers where an individuals can sign up to post their thoughts on games and such. Post your thoughts with a URL picture for reference or just your thoughts. All individuals can like a post and/or comment!
 
-##Technologies Used
+## Technologies Used
 
 ### Frontend
 JavaScript | React | Redux
