@@ -7,7 +7,7 @@ import LoginForm from "../auth/LoginForm"
 import Feed from "../Feed/Feed"
 import Modal from "../Modal/Modal"
 import NavBar from "../NavBar/NavBar"
-import { NavLink } from "react-router-dom"
+import { Link, NavLink } from "react-router-dom"
 import test from './test.png';
 
 const HomePage = () => {
@@ -81,11 +81,11 @@ const HomePage = () => {
 
             <div className="splashFooter">
                 <div className="socials">
-                    <div>Nicolas Github</div>
-                    <div>Nicolas LinkedIn</div>
+                    <Link className="social" to={{pathname: "https://github.com/NJSim"}} target="_blank">Nicolas Github</Link>
+                    <Link className="social" to={{pathname: "https://www.linkedin.com/in/nicolas-sim-156422170/"}} target="_blank">Nicolas LinkedIn</Link>
 
                 </div>
-                <div>© 2021 Gamestagram (parody)</div>
+                <div className="parody">© 2021 Gamestagram (parody)</div>
             </div>
 
         </div>

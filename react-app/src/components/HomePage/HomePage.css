@@ -108,3 +108,27 @@
 .formPost {
     padding-top: 20px;
 }
+
+.socials {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap:20px;
+    font-size: 20px;
+    padding: 20px;
+    text-decoration: none;
+}
+
+.social {
+    text-decoration: none;
+    color: #8e8e8e;
+    font-weight: bolder;
+}
+
+.social:hover {
+    text-decoration: underline;
+}
+
+.parody {
+    font-size: 20px;
+}

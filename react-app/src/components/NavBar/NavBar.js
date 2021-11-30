@@ -1,7 +1,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 import { clearQuery, getQuery } from '../../store/search';
 import LogoutButton from '../auth/LogoutButton';
 import "./NavBar.css"
@@ -12,6 +12,7 @@ const NavBar = () => {
   const [searchClicked, setSearchClicked] = useState(false)
   const [query, setQuery] = useState("")
   const dispatch = useDispatch();
+  const history = useHistory();
 
   useEffect(() => {
     if (query == "") {
@@ -54,7 +55,7 @@ const NavBar = () => {
         </h1>
       </NavLink>
       <div>
-        <input className="searchBar" placeholder="Search"
+        <input className="searchBar" placeholder="Search Usernames"
         onFocus={(e) => setSearchClicked(true)}
         onBlur={(e) => setSearchClicked(false)}
         onKeyUp={(e) => setQuery(e.target.value)}
@@ -65,10 +66,14 @@ const NavBar = () => {
           <div className="results">
             {Object.keys(queryResults).map((key,i) => {
               return (
-                <>
-                  {queryResults[key]}
+                <div onMouseDown={() => history.push(`/users/${queryResults[key]}`) } className="eachResult">
+                  <div className="usernameR">
+                    {queryResults[key]}
+
+                  </div>
+
                   <br></br>
-                </>
+                </div>
               )
             })}
           </div>

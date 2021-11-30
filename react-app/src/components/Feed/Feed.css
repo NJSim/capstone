@@ -12,11 +12,40 @@
 
 .userInfo{
     padding-left: 20px;
+    display: flex;
+    flex-direction: column;
+    gap:4px;
+
 }
 
 .feedFlex {
     display: flex;
     flex-direction: column-reverse;
     padding-left: 12%;
+}
 
+.c1 {
+    font-weight: bolder;
+    font-size: 20px;
+    text-decoration: underline;
+}
+
+.c2 {
+
+}
+
+.c3 {
+
+}
+
+.c4 {
+
+}
+
+.userProfile {
+    color: #4CAF50;
+    font-weight: bold;
+}
+.userProfile:hover{
+    text-decoration: underline;
 }

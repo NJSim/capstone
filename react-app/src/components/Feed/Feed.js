@@ -33,18 +33,22 @@ const Feed = () => {
 
             </div>
             <div className="userInfo">
-                <div>
-                    {sessionUser.username}
-
-                </div>
-                <div>
-                    {sessionUser.bio}
-
-                </div>
-                <div>
+                <div className="c4">
                     <NavLink className="userProfile" to={`/users/${sessionUser.username}`}>Profile</NavLink>
 
                 </div>
+                <div className="c1">
+                    User Info
+
+                </div>
+                <div className="c2">
+                    Username: {sessionUser.username}
+
+                </div>
+                {/* <div className="c3">
+                    "{sessionUser.bio}"
+
+                </div> */}
 
 
 

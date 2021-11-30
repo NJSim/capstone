@@ -13,7 +13,7 @@
     text-align: left;
     border: 1px solid rgb(219, 219, 219,1);
     border-radius: 3px;
-    max-width: 189px;
+    width: 250px;
     height: 20px;
 }
 
@@ -36,6 +36,25 @@
 .results{
     position: absolute;
     border: 1px solid rgb(219, 219, 219,1);
-    width: 400px;
+    width: 248px;
+    background-color: white;
+    display: flex;
 
+    flex-direction: column;
+}
+
+.eachResult {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+}
+
+.usernameR {
+    text-decoration: none;
+    color: black;
+}
+
+.usernameR:hover {
+    text-decoration: underline;
+    cursor: pointer;
 }
