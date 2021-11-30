@@ -37,7 +37,7 @@ def validation_errors_to_error_messages(validation_errors):
 @post_routes.route('/')
 @login_required
 def users():
-    posts = Post.query.all()
+    posts = Post.query.order_by(Post.id.desc()).all()
     # return {post.id:post.to_dict() for post in posts}
     postInfo = {}
     for post in posts:
@@ -56,7 +56,13 @@ def users():
         postInfo[post.id]['likes'] = {like.user_id:like.to_dict() for like in likes}
         postInfo[post.id]['likesLength'] = len(likes)
         if comments:
-            postInfo[post.id]['comments'] = {comment.id:comment.to_dict() for comment in comments}
+            postInfo[post.id]['comments'] = {comment.id:{
+            'id': comment.id,
+            'user_id': User.query.filter(User.id == comment.user_id).first().to_dict(),
+            'post_id': comment.post_id,
+            'caption': comment.caption,
+        } for comment in comments}
+
             postInfo[post.id]['commentsLength'] = len(allComments)
 
     return postInfo
@@ -78,16 +84,28 @@ def user(post_id):
     postInfo['caption'] = post.caption
     postInfo['url'] = post.url
     likes = Like.query.filter(Like.post_id == post.id).all()
-    postInfo['likes'] = {like.id:like.to_dict() for like in likes}
+    postInfo['likes'] = {like.user_id:like.to_dict() for like in likes}
     postInfo['likesLength'] = len(likes)
     if comments:
-        postInfo['comments'] = {comment.id:comment.to_dict() for comment in comments}
+        postInfo['comments'] = {comment.id:{
+            'id': comment.id,
+            'user_id': User.query.filter(User.id == comment.user_id).first().to_dict(),
+            'post_id': comment.post_id,
+            'caption': comment.caption,
+        } for comment in comments}
         postInfo['commentsLength'] = len(comments)
 
     print(postInfo)
     return postInfo
 
+@post_routes.route('/query/<query>')
+def get_query(query):
+    users = User.query.filter(User.username.ilike(f'%{query}%')).all()
+    if (users):
 
+        findQuery = {user.id: user.username for user in users}
+        return findQuery
+    return {}
 
 
 @post_routes.route('/add', methods=['POST'])

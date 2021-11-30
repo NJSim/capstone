@@ -19,7 +19,7 @@ const Feed = () => {
 
     return (
         <div className="mainFeed">
-            <div>
+            <div className="feedFlex">
                 {Object.keys(allPosts).map((key, index) => (
                     <>
 
@@ -42,7 +42,7 @@ const Feed = () => {
 
                 </div>
                 <div>
-                    <NavLink className="userProfile" to={`/users/${sessionUser.id}`}>Profile</NavLink>
+                    <NavLink className="userProfile" to={`/users/${sessionUser.username}`}>Profile</NavLink>
 
                 </div>
 

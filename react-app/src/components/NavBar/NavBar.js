@@ -1,13 +1,25 @@
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
+import { clearQuery, getQuery } from '../../store/search';
 import LogoutButton from '../auth/LogoutButton';
 import "./NavBar.css"
 
 const NavBar = () => {
 
+  const queryResults = useSelector(state => state.search.results);
   const [searchClicked, setSearchClicked] = useState(false)
   const [query, setQuery] = useState("")
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (query == "") {
+      dispatch(clearQuery())
+    } else {
+      dispatch(getQuery(query));
+    }
+  },[dispatch, query]);
 
   return (
     <nav className="navBarMain">
@@ -47,10 +59,18 @@ const NavBar = () => {
         onBlur={(e) => setSearchClicked(false)}
         onKeyUp={(e) => setQuery(e.target.value)}
         type="search"
+        maxLength='500'
         ></input>
         {searchClicked ? (
-          <div>
-            Test Results
+          <div className="results">
+            {Object.keys(queryResults).map((key,i) => {
+              return (
+                <>
+                  {queryResults[key]}
+                  <br></br>
+                </>
+              )
+            })}
           </div>
         ): null}
 

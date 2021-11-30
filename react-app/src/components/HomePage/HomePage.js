@@ -8,6 +8,7 @@ import Feed from "../Feed/Feed"
 import Modal from "../Modal/Modal"
 import NavBar from "../NavBar/NavBar"
 import { NavLink } from "react-router-dom"
+import test from './test.png';
 
 const HomePage = () => {
 
@@ -52,7 +53,7 @@ const HomePage = () => {
         <div className='splashPage'>
             <div className='splashFlex'>
                 <div className='pictureSplash'>
-                    text
+                    <img src={test} alt="test"></img>
                 </div>
                 <div className='splashMain'>
                     <div className='splashMainFlex'>
@@ -84,7 +85,7 @@ const HomePage = () => {
                     <div>Nicolas LinkedIn</div>
 
                 </div>
-                <div>© 2021 Gamestagram (Instagram Clone)</div>
+                <div>© 2021 Gamestagram (parody)</div>
             </div>
 
         </div>
@@ -93,22 +94,23 @@ const HomePage = () => {
         isRegistered = (
             <>
                 <NavBar />
-                <form onSubmit={submitPost}>
+                <form className="formPost" onSubmit={submitPost}>
                     <div>
                         {errors.map((error, ind) => (
                         <div key={ind}>{error}</div>
                         ))}
                     </div>
                     <div>
-                        <label>Create New Post</label>
+                        <label className="create">Create New Post</label>
                         <input
                         type='text'
                         name='caption'
                         onChange={(e) => setNewCaption(e.target.value)}
                         required
-                        placeholder="Create New Post"
+                        placeholder="Caption"
                         value={newCaption}
                         required={true}
+                        maxLength='500'
                         />
                         <input
                         type='text'
@@ -116,12 +118,13 @@ const HomePage = () => {
                         onChange={(e) => setNewURL(e.target.value)}
                         placeholder="URL"
                         value={newURL}
+                        maxLength='2000'
                         >
                         </input>
                     </div>
                     <button type="submit">Create Post</button>
                 </form>
-                    <Feed/>
+                <Feed/>
             </>
         )
     }

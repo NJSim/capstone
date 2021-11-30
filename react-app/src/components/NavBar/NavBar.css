@@ -32,3 +32,10 @@
     text-decoration: none;
     color:rgb(219, 219, 219,1)
 }
+
+.results{
+    position: absolute;
+    border: 1px solid rgb(219, 219, 219,1);
+    width: 400px;
+
+}

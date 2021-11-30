@@ -1,6 +1,7 @@
 .mainFeed{
     display:flex;
-    background-color: rgb(250, 250, 250,1)
+    background-color: rgb(250, 250, 250,1);
+    padding-top: 30px;
 }
 
 .postNav{
@@ -10,5 +11,12 @@
 }
 
 .userInfo{
-    padding-left: 10px;
+    padding-left: 20px;
+}
+
+.feedFlex {
+    display: flex;
+    flex-direction: column-reverse;
+    padding-left: 12%;
+
 }

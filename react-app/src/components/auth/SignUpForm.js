@@ -86,6 +86,14 @@ const SignUpForm = () => {
           required={true}
         ></input>
       </div>
+      {password ?
+      <div>
+        {password != repeatPassword && password ? <div>Password's don't match</div>: <div>Passwords Match!</div>}
+
+      </div> :
+
+        null
+      }
       <button type='submit'>Sign Up</button>
     </form>
   );
