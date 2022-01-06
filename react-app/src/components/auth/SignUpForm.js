@@ -88,7 +88,7 @@ const SignUpForm = () => {
       </div>
       {password ?
       <div>
-        {password != repeatPassword && password ? <div>Password's don't match</div>: <div>Passwords Match!</div>}
+        {password !== repeatPassword && password ? <div>Password's don't match</div>: <div>Passwords Match!</div>}
 
       </div> :
 

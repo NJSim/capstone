@@ -2,6 +2,7 @@
     display:flex;
     background-color: rgb(250, 250, 250,1);
     padding-top: 30px;
+    justify-content: center;
 }
 
 .postNav{
@@ -21,7 +22,7 @@
 .feedFlex {
     display: flex;
     flex-direction: column-reverse;
-    padding-left: 12%;
+
 }
 
 .c1 {

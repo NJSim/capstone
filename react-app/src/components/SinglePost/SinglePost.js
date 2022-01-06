@@ -82,6 +82,18 @@ function SinglePost({ post }) {
     )
 
     if (post) {
+        const like=(
+            <div className="unlike">
+                <i class="far fa-heart"></i>
+
+            </div>
+        )
+        const unlike=(
+            <div className="like">
+                <i class="far fa-heart"></i>
+
+            </div>
+        )
         isPost = (
         <div className="mainPost">
             <div className="postInfo">
@@ -102,7 +114,7 @@ function SinglePost({ post }) {
                     dispatch(getAllPosts())
                     )
                 }}>
-                    {" Unlike "}
+                    {unlike}
                 </div>
 
 
@@ -118,7 +130,7 @@ function SinglePost({ post }) {
 
                 }}
                 >
-                    {"  Like  "}
+                    {like}
                 </div>
 
                 }

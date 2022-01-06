@@ -84,10 +84,10 @@
 
 .likeBtns {
     font-weight: bold;
-    border: 1px solid;
+    /* border: 1px solid;*/
     border-radius: 5px;
-    padding:px;
-    background-color: #2a8af8;;
+    padding: 2px;
+    /* background-color: #2a8af8;; */
 }
 
 .likeBtns:hover {
@@ -120,4 +120,12 @@
     justify-content: center;
     align-items: center;
     gap: 10px;
+}
+
+.like {
+    background-color: grey;
+}
+
+.unlike {
+    background-color: white;
 }
